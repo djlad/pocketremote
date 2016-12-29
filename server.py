@@ -1,3 +1,4 @@
+import mouseandkeyboard
 import tornado.web
 import tornado.websocket
 import tornadio2
@@ -17,7 +18,9 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         event = json.loads(message)[0]
         message = json.loads(message)[1]
 
-        #if event == "move":
+        if event == "move":
+            #message is object containing mouse coords
+            mouseandkeyboard.move_mouse(message.x, message.y)
             
 	    
 

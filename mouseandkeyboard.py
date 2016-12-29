@@ -14,8 +14,13 @@ class kbMouse:
 		(x,y) = self.mouse.position() 
 		self.mouse.click(x,y,1)
 
-	def move_mouse(self):
-		self.mouse.move(x,y)
+	def move_mouse(self, dx, dy):
+            """
+            takes change in x and y
+            moves mouse by this amount
+            """
+            (x,y) = self.mouse.position()
+	    self.mouse.move(x + dx, y + dy)
 	
 	#Doesn't work gotta add keylistener
 	def type(self,key):
