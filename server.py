@@ -17,8 +17,9 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         event = json.loads(message)[0]
         message = json.loads(message)[1]
 
-        if event == "move"
-		
+        #if event == "move":
+            
+	    
 
 def make_app():
     return tornado.web.Application([
