@@ -1,9 +1,10 @@
 console.log("hello world")
 
 function socksend(socket, eventname,message){
-	sendarray = "["+eventname+","+JSON.stringify(message)+"]"
-	console.log(sendarray)
-	socket.send(sendarray)
+	sendarray = "[\""+eventname+"\" ,"+JSON.stringify(message)+"]"
+	console.log(sendarray);
+	q = sendarray;
+	socket.send(sendarray);
 }
 var ws = new WebSocket("ws://localhost:8000/ws");
 var mouse = {x:0,y:0}
@@ -32,9 +33,9 @@ window.onload = function(){
 		mouseDiff.x = mouse.x - mouseStart.x;
 		mouseDiff.y = mouse.y - mouseStart.y;
 
-		console.log(mouseDiff);
 
 		if(mouseDown){
+			console.log(mouseDiff);
 			socksend(ws, "move", mouseDiff);
 		}
 

@@ -4,6 +4,8 @@ import tornado.websocket
 import tornadio2
 import json
 
+mousekeyboard = mouseandkeyboard.kbMouse()
+
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("phone.html")
@@ -14,13 +16,15 @@ class phonejsHandler(tornado.web.RequestHandler):
         self.render("phone.js")
 
 class WebSocketHandler(tornado.websocket.WebSocketHandler):
+
     def on_message(self, message):
         event = json.loads(message)[0]
         message = json.loads(message)[1]
 
         if event == "move":
             #message is object containing mouse coords
-            mouseandkeyboard.move_mouse(message.x, message.y)
+            print "move"
+            mousekeyboard.move_mouse(message["x"], message["y"])
             
 	    
 
@@ -36,7 +40,7 @@ if __name__ == "__main__":
     app.listen(8000)
     tornado.ioloop.IOLoop.current().start()
 
-    MyRouter = tornadio2.TornadioRouter(WebSocketHandler)
-    application = tornado.web.Application(
-    MyRouter.urls,
-    socket_io_port = 8000)
+    #MyRouter = tornadio2.TornadioRouter(WebSocketHandler)
+    #application = tornado.web.Application(
+    #MyRouter.urls,
+    #socket_io_port = 8000)
