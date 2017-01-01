@@ -2,7 +2,7 @@ console.log("hello world")
 
 function socksend(socket, eventname,message){
 	sendarray = "[\""+eventname+"\" ,"+JSON.stringify(message)+"]"
-	console.log(sendarray);
+	alert(sendarray);
 	q = sendarray;
 	socket.send(sendarray);
 }
@@ -15,10 +15,18 @@ var mouseDown = false;
 
 
 window.addEventListener("mousedown", function(){
-	mouseDown = true
+	mouseDown = true;
+})
+
+window.addEventListener("touchstart", function(){
+	mouseDown = true;
 })
 
 window.addEventListener("mouseup", function(){
+	mouseDown = false;
+})
+
+window.addEventListener("touchend", function(){
 	mouseDown = false;
 })
 
@@ -26,20 +34,27 @@ window.addEventListener("mouseup", function(){
 window.onload = function(){
 
 	var trackpadElement = document.getElementById("trackpad");
-	trackpadElement.addEventListener("mousemove",function(e){
-		mouse.x = e.clientX;
-		mouse.y = e.clientY;
+	trackpadElement.addEventListener("mousemove", updateMousePosition);
+	trackpadElement.addEventListener("touchmove", updateMousePosition);
+}
+alert(1)
+function updateMousePosition(e){
+		eventType = e.type;
+		mouse.x = eventType?e.clientX:e.touches[0].pageX;
+		mouse.y = eventType?e.clientY:e.touches[0].pageY;
+
 
 		mouseDiff.x = mouse.x - mouseStart.x;
 		mouseDiff.y = mouse.y - mouseStart.y;
 
-
+		//alert("at if statement")
+		//alert(mouseDown)
 		if(mouseDown){
-			console.log(mouseDiff);
+			alert("in if")
+			alert(mouseDif)
 			socksend(ws, "move", mouseDiff);
 		}
 
 		mouseStart.x = mouse.x;
 		mouseStart.y = mouse.y;
-	})
-}
+	}
