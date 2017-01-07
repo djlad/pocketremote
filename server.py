@@ -23,8 +23,15 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
 
         if event == "move":
             #message is object containing mouse coords
-            print "move"
             mousekeyboard.move_mouse(message["x"], message["y"])
+
+        if event == "click":
+            #message is boolean determining left or right click
+            #message is true if left click
+            mousekeyboard.click(message);
+
+    def check_origin(self, origin):
+        return True
             
 	    
 

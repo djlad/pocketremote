@@ -9,18 +9,20 @@ class kbMouse:
 	def __init__(self):
             print "keyboard and mouse initilized"
 
-	def click(self):
-            x_dim,y_dim = self.mouse.screen_size()
-            (x,y) = self.mouse.position() 
-            self.mouse.click(x,y,1)
+	def click(self, isLeftClick):
+		#isleftclick is bool determining left or right click
+		buttons = "left"
+
+		if not isLeftClick:
+			buttons = "right"
+		pyautogui.click(button=buttons)
 
 	def move_mouse(self, dx, dy):
             """
             takes change in x and y
             moves mouse by this amount
             """
-            print "moving mouse"
-            pyautogui.moveRel(dx, dy)
+            pyautogui.moveRel(dx, dy, 0)
 	
 	#Doesn't work gotta add keylistener
 	def type(self,key):
